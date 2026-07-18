@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { Message, Session } from './types/chat';
+import ThemeSwitcher from './components/ThemeSwitcher';
 import ChatView from './components/ChatView';
 
 
@@ -10,6 +11,15 @@ function App() {
 
   const [sessions, setSessions] = useState<Session[]>([])
   const [activeSessionId, setActiveSessionId] = useState<string | null>(null)
+
+  const [theme, setTheme] = useState<string>(
+    () => localStorage.getItem('lo-ol-theme') ?? 'cozy'
+  )
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme)
+    localStorage.setItem('lo-ol-theme', theme)
+  }, [theme])
 
   function handleNewChat() {
     const newSession: Session = {
@@ -108,6 +118,11 @@ const messages = activeSession?.messages ?? []
       </aside>
 
       <main className="chat">
+        <div className="chat-header">
+          <span>{activeSession ? 'Chatting with llama3.2:1b' : 'lo-ol'}</span>
+          <ThemeSwitcher theme={theme} onThemeChange={setTheme} />
+        </div>
+
         {activeSession ? (
           <ChatView
             messages={messages}

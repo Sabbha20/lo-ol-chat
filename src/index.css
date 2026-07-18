@@ -27,6 +27,11 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-body);
 /* ---------- LAYOUT ---------- */
 .app { display:grid; grid-template-columns:264px 1fr; height:100vh; }
 
+.theme-select { background:var(--surface); color:var(--text);
+  border:1px solid var(--border); border-radius:var(--radius);
+  padding:7px 12px; font-family:inherit; font-size:13px; cursor:pointer; outline:none; }
+.theme-select:focus { border-color:var(--accent); }
+
 .sidebar { background:var(--surface); border-right:1px solid var(--border);
   display:flex; flex-direction:column; padding:var(--gap); gap:var(--gap); }
 .sidebar-logo { display:flex; align-items:center; gap:8px; font-weight:700;
@@ -85,3 +90,8 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-body);
   cursor:pointer; transition:filter .15s; }
 .composer button:hover:not(:disabled) { filter:brightness(1.08); }
 .composer button:disabled, .composer input:disabled { opacity:.55; cursor:not-allowed; }
+
+.theme-select { background:var(--surface); color:var(--text);
+  border:1px solid var(--border); border-radius:var(--radius);
+  padding:7px 12px; font-family:inherit; font-size:13px; cursor:pointer; outline:none; }
+.theme-select:focus { border-color:var(--accent); }
