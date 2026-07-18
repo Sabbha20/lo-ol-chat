@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { Message } from './types/chat'
 import MessageList from './components/MessageList';
+import Composer from './components/Composer';
 
 
 function App() {
@@ -40,12 +41,11 @@ async function handleSend() {
     <>
       <h1>Ollama Chat</h1>
       <MessageList messages={messages} />
-      <input
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        placeholder="Type a message"
+      <Composer
+        input={input}
+        onInputChange={setInput}
+        onSend={handleSend}
       />
-      <button onClick={handleSend}>Send</button>
     </>
   )
 }
