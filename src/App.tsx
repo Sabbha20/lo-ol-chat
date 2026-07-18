@@ -26,15 +26,39 @@ async function handleSend() {
     body: JSON.stringify({
       model: 'llama3.2:1b',
       messages: newMessages,
-      stream: false,
+      stream: true,
     }),
   })
 
-  const data = await res.json()
-  const reply: Message = { role: 'assistant', content: data.message.content }
-  setMessages([...newMessages, reply])
-}
+  // Add an empty assistant message we'll fill in as tokens arrive
+  setMessages([...newMessages, { role: 'assistant', content: '' }])
 
+  const reader = res.body!.getReader()
+  const decoder = new TextDecoder()
+
+  while (true) {
+    const { done, value } = await reader.read()
+    if (done) break
+
+    const chunk = decoder.decode(value)
+    const lines = chunk.split('\n').filter((line) => line.trim())
+
+    for (const line of lines) {
+      const data = JSON.parse(line)
+      const token = data.message?.content ?? ''
+
+      setMessages((prev) => {
+        const updated = [...prev]
+        const last = updated[updated.length - 1]
+        updated[updated.length - 1] = {
+          ...last,
+          content: last.content + token,
+        }
+        return updated
+      })
+    }
+  }
+}
 
   return (
     <>
