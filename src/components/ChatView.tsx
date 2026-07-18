@@ -1,4 +1,4 @@
-import type { Message } from '../types/chat'
+import type { Message, Session } from '../types/chat'
 import MessageList from './MessageList'
 import Composer from './Composer'
 
