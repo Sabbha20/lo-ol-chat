@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 
 type Message = {
   role: 'user' | 'assistant'
@@ -6,10 +8,14 @@ type Message = {
 
 function App() {
 
-  const messages: Message[] = [
-    { role: 'user', content: 'Hello, local model!' },
-    { role: 'assistant', content: 'Hi! How can I help?' },
-  ]
+  const [messages, setMessages] = useState<Message[]>([
+  { role: 'user', content: 'Hello, local model!' },
+  { role: 'assistant', content: 'Hi! How can I help?' },
+])
+
+function handleAdd() {
+  setMessages([...messages, { role: 'user', content: 'Another message' }])
+}
 
   return (
     <>
@@ -19,6 +25,8 @@ function App() {
           <strong>{msg.role}:</strong> {msg.content}
         </p>
       ))}
+
+      <button onClick={handleAdd}>Add message</button>
     </>
   )
 }
