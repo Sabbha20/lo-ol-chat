@@ -1,10 +1,7 @@
 import { useState } from 'react';
+import type { Message } from './types/chat'
+import MessageList from './components/MessageList';
 
-
-type Message = {
-  role: 'user' | 'assistant'
-  content: string
-}
 
 function App() {
 
@@ -42,11 +39,7 @@ async function handleSend() {
   return (
     <>
       <h1>Ollama Chat</h1>
-      {messages.map((msg, i) => (
-        <p key={i}>
-          <strong>{msg.role}:</strong> {msg.content}
-        </p>
-      ))}
+      <MessageList messages={messages} />
       <input
         value={input}
         onChange={(e) => setInput(e.target.value)}
