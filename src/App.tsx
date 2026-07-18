@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import type { Message } from './types/chat'
-import MessageList from './components/MessageList';
-import Composer from './components/Composer';
+import type { Message } from './types/chat';
+import ChatView from './components/ChatView';
 
 
 function App() {
@@ -39,9 +38,9 @@ async function handleSend() {
 
   return (
     <>
-      <h1>Ollama Chat</h1>
-      <MessageList messages={messages} />
-      <Composer
+      <h1>lo-ol Chat</h1>
+      <ChatView
+        messages={messages}
         input={input}
         onInputChange={setInput}
         onSend={handleSend}
