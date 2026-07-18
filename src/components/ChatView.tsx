@@ -7,13 +7,14 @@ type ChatViewProps = {
   input: string
   onInputChange: (value: string) => void
   onSend: () => void
+  isLoading: boolean
 }
 
-function ChatView({ messages, input, onInputChange, onSend }: ChatViewProps) {
+function ChatView({ messages, input, onInputChange, onSend, isLoading }: ChatViewProps) {
   return (
     <div>
       <MessageList messages={messages} />
-      <Composer input={input} onInputChange={onInputChange} onSend={onSend} />
+      <Composer input={input} onInputChange={onInputChange} onSend={onSend} isLoading={isLoading} />
     </div>
   )
 }
