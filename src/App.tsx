@@ -6,16 +6,19 @@ type Message = {
 
 function App() {
 
-  const firstMsg: Message = {
-    role: 'user',
-    content: "Hello, Ollama!"
-  }
+  const messages: Message[] = [
+    { role: 'user', content: 'Hello, local model!' },
+    { role: 'assistant', content: 'Hi! How can I help?' },
+  ]
 
   return (
     <>
       <h1>Ollama Chat</h1>
-      <h3>{firstMsg.role}</h3>
-      <p>{firstMsg.content}</p>
+      {messages.map((msg, i) => (
+        <p key={i}>
+          <strong>{msg.role}:</strong> {msg.content}
+        </p>
+      ))}
     </>
   )
 }
