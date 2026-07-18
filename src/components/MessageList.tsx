@@ -6,14 +6,19 @@ type MessageListProps = {
 
 function MessageList({ messages }: MessageListProps) {
   return (
-    <div>
-      {messages.map((msg, i) => (
-        <p key={i}>
-          <strong>{msg.role}:</strong> {msg.content}
-        </p>
-      ))}
+    <div className="messages">
+        {messages.map((msg, i) => (
+        <div key={i} className={`msg msg-${msg.role}`}>
+            {msg.role === 'assistant' && (
+            <div className="avatar">
+                <span className="eyes"><i></i><i></i></span>
+            </div>
+            )}
+            <div className="bubble">{msg.content}</div>
+        </div>
+        ))}
     </div>
-  )
+    )
 }
 
 export default MessageList

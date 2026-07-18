@@ -12,11 +12,19 @@ type ChatViewProps = {
 
 function ChatView({ messages, input, onInputChange, onSend, isLoading }: ChatViewProps) {
   return (
-    <div>
-      <MessageList messages={messages} />
-      <Composer input={input} onInputChange={onInputChange} onSend={onSend} isLoading={isLoading} />
-    </div>
-  )
+    <>
+        <div className="chat-header">
+        <span>Chatting with llama3.2:1b</span>
+        </div>
+        <MessageList messages={messages} />
+        <Composer
+        input={input}
+        onInputChange={onInputChange}
+        onSend={onSend}
+        isLoading={isLoading}
+        />
+    </>
+    )
 }
 
 export default ChatView

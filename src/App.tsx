@@ -85,19 +85,21 @@ async function handleSend() {
 const activeSession = sessions.find((s) => s.id === activeSessionId) ?? null
 const messages = activeSession?.messages ?? []
 
+
   return (
     <div className="app">
       <aside className="sidebar">
-        <button onClick={handleNewChat}>+ New chat</button>
-        <div>
+        <div className="sidebar-logo">
+          <span className="logo-eyes"><span></span><span></span></span>
+          lo-ol
+        </div>
+        <button className="new-chat-btn" onClick={handleNewChat}>+ New chat</button>
+        <div className="session-list">
           {sessions.map((s) => (
             <div
               key={s.id}
+              className={`session-item ${s.id === activeSessionId ? 'active' : ''}`}
               onClick={() => setActiveSessionId(s.id)}
-              style={{
-                fontWeight: s.id === activeSessionId ? 'bold' : 'normal',
-                cursor: 'pointer',
-              }}
             >
               {s.title}
             </div>
@@ -105,7 +107,7 @@ const messages = activeSession?.messages ?? []
         </div>
       </aside>
 
-      <main className="main">
+      <main className="chat">
         {activeSession ? (
           <ChatView
             messages={messages}
@@ -116,8 +118,9 @@ const messages = activeSession?.messages ?? []
           />
         ) : (
           <div className="empty-state">
+            <div className="big-eyes"><span></span><span></span></div>
             <h2>No chat selected</h2>
-            <p>Click "+ New chat" to start a conversation.</p>
+            <p>Click "+ New chat" to start talking to your local model.</p>
           </div>
         )}
       </main>
