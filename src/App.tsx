@@ -15,11 +15,29 @@ function App() {
   { role: 'assistant', content: 'Hi! How can I help?' },
 ])
 
-function handleAdd() {
+async function handleSend() {
   if (!input.trim()) return
-  setMessages([...messages, { role: 'user', content: input }])
+
+  const userMsg: Message = { role: 'user', content: input }
+  const newMessages = [...messages, userMsg]
+  setMessages(newMessages)
   setInput('')
+
+  const res = await fetch('/ollama/api/chat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      model: 'llama3.2:1b',
+      messages: newMessages,
+      stream: false,
+    }),
+  })
+
+  const data = await res.json()
+  const reply: Message = { role: 'assistant', content: data.message.content }
+  setMessages([...newMessages, reply])
 }
+
 
   return (
     <>
@@ -34,7 +52,7 @@ function handleAdd() {
         onChange={(e) => setInput(e.target.value)}
         placeholder="Type a message"
       />
-      <button onClick={handleAdd}>Add message</button>
+      <button onClick={handleSend}>Send</button>
     </>
   )
 }
